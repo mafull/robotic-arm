@@ -4,6 +4,11 @@ classdef GUI < handle
        hLines
        hScatter
        hLabels
+       
+       hResetButton
+       
+       % External callback functions
+       extCbResetButton
    end
    
    methods
@@ -16,7 +21,17 @@ classdef GUI < handle
            ylabel('y');
            zlabel('z');
            hold on;
-           axis equal;           
+           axis equal;
+           xlim([-500 500]);
+           ylim([-500 500]);
+           zlim([-100 500]);
+           
+           % Create buttons
+           obj.hResetButton = uicontrol( ...
+               obj.hFigure, ...
+               'Style', 'pushbutton', ...
+               'String', 'Reset', ...
+               'Callback', @obj.cbResetButton );
        end
        
        function show(obj, points)
@@ -45,12 +60,17 @@ classdef GUI < handle
            obj.hFigure.Visible = 'on';
        end
        
-       function update(obj, points)
+       function success = update(obj, points)
            % Update all the points
-           obj.updateN(points, size(points, 2));
+           success = obj.updateN(points, size(points, 2));
        end
        
-       function updateN(obj, points, n)
+       function success = updateN(obj, points, n)
+           if (~ishandle(obj.hFigure))
+               success = 0;
+               return;
+           end
+           
            % Update scatter plot
            obj.hScatter.set( ...
                'XData', points(1,1:n), ...
@@ -65,11 +85,26 @@ classdef GUI < handle
            
            % Update label plot
            for i = 1:n
-               %obj.hLabels(i).Position = points(1:3,i);
+               obj.hLabels(i).Position = points(1:3,i);
            end
            
            % Update figure data
            refresh(obj.hFigure);
+           
+           disp(points);
+           
+           success = 1;
+       end
+       
+       function setResetCallback(obj, callback)
+           obj.extCbResetButton = callback;
+       end
+       
+       function cbResetButton(obj, src, event)
+           if (isa(obj.extCbResetButton, 'function_handle'))
+               points = obj.extCbResetButton();
+               obj.update(points);
+           end
        end
    end
 end

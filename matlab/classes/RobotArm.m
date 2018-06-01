@@ -57,8 +57,9 @@ classdef RobotArm < handle
                 alpha = obj.alpha_all(i);
                 
                 % Add joint parameter
-                if obj.jointParameter_all == 0
+                if (obj.jointType_all(i) == 0)
                     % Revolute joint
+                    tE = obj.jointParameter_all(i);
                     theta = theta + obj.jointParameter_all(i);
                 else
                     % Prismatic joint
@@ -106,6 +107,12 @@ classdef RobotArm < handle
             
             % Return new positions
             positions = obj.position_all;
+        end
+        
+        function positions = reset(obj)
+            disp('Reset arm');
+            jointParameters = zeros(1, size(obj.jointParameter_all,2));
+            positions = obj.update(jointParameters);
         end
     end
 end
