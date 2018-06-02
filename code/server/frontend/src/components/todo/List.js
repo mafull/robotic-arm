@@ -12,15 +12,14 @@ class List extends Component {
 
     componentDidMount() {
         axios
-            .get("https://jsonplaceholder.typicode.com/todos")
+            .get("/todo")
             .then(response => {
-                console.log(response.data);
-
-                const todos = response.data.map(item => {
+                const todos = response.data.map(t => {
                     return {
-                        id: item.id,
-                        text: item.title,
-                        completed: item.completed
+                        id: t._id,
+                        text: t.text,
+                        completed: t.completed,
+                        created: t.created
                     };
                 });
 
