@@ -50,7 +50,6 @@ class ListElement extends Component {
 
     render() {
         const {
-            id,
             action,
             completed,
             created

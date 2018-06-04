@@ -1,7 +1,6 @@
 import React, { Component }     from "react";
 import Todo                     from "./todo/Index";
 import {
-    Card,
     Container,
     Header
 }                               from "semantic-ui-react";
@@ -12,9 +11,7 @@ class Main extends Component {
         return (
             <Container>
                 <Header>Main component</Header>
-                {/* <Card.Group> */}
-                    <Todo />
-                {/* </Card.Group> */}
+                <Todo />
             </Container>
         );
     }

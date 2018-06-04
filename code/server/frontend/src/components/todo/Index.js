@@ -1,8 +1,6 @@
 import React, { Component }     from "react";
 import {
     Card,
-    Container,
-    Header,
     Icon
 }                               from "semantic-ui-react";
 
