@@ -72,17 +72,21 @@ class ListContainer extends Component {
         const listElements = todos.length ? todos.map(t => <ListElement {...t} key={t.id} parentUpdateData={updateData} />) : null;
 
         return (
-            <Segment loading={loading}>
+            <Segment>
                 <Header icon textAlign="center">
                     <Icon name="tasks" circular />
                     <Header.Content>
-                        List
+                        Todo List
                     </Header.Content>
                 </Header>
-                <NewListElement parentUpdateData={updateData} />
-                <List divided relaxed>
-                    {listElements}
-                </List>
+
+                <Segment loading={loading} basic>
+                    <NewListElement parentUpdateData={updateData} />
+                    
+                    <List divided relaxed>
+                        {listElements}
+                    </List>
+                </Segment>
             </Segment>
         );
     }

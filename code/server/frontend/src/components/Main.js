@@ -1,4 +1,5 @@
 import React, { Component }     from "react";
+import Log                      from "./log/Index"
 import Todo                     from "./todo/Index";
 import {
     Container,
@@ -12,6 +13,7 @@ class Main extends Component {
             <Container>
                 <Header>Main component</Header>
                 <Todo />
+                <Log />
             </Container>
         );
     }
