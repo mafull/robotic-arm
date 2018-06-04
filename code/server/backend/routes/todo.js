@@ -1,5 +1,6 @@
 import express      from "express";
 import mongoose     from "mongoose";
+import moment       from "moment";
 
 import lt           from "../LogTools";
 import { Todo }     from "../models";
@@ -14,16 +15,18 @@ router.get("/", (req, res) => {
         .find({})
         .sort({
             completed: 1, 
-            created: 1
+            creationTime: 1
         })
         .exec((err, todos) => {
             if (err) {
                 return res.status(404).send("Unable to retrieve todos");
             }
 
-            // Reverse order of completed tasks and return the recombined array
+            // Sort order of completed tasks by completion time and recombine
             const nonComplete = todos.filter(t => !t.completed);
-            const complete = todos.filter(t => t.completed).reverse();
+            const complete = todos
+                .filter(t => t.completed)
+                .sort((a, b) => new Date(b.completionTime) - new Date(a.completionTime));
             res.json([...nonComplete, ...complete]);
         });
 });
@@ -34,7 +37,8 @@ router.post("/", (req, res) => {
     const todo = { 
         action: req.body.action,
         completed: req.body.completed,
-        created: req.body.created
+        creationTime: req.body.creationTime,
+        completionTime: req.body.completionTime
     };
 
     Todo.create(todo, (err, createdTodo) => {
@@ -58,6 +62,7 @@ router.put("/:id", (req, res) => {
 
         existingTodo.action = todo.action;
         existingTodo.completed = todo.completed;
+        existingTodo.completionTime = Date.now();
         existingTodo.save((err, updatedTodo) => {
             if (err) {
                 return res.status(404).send("Unable to update todo data");

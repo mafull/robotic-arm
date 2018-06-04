@@ -34,7 +34,8 @@ class NewListElement extends Component {
 		const data = {
 			action: this.state.action,
 			completed: false,
-			created: Date.now()
+			creationTime: Date.now(),
+			completionTime: Date.now()
 		};
 
 		axios

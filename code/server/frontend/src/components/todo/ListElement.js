@@ -52,7 +52,8 @@ class ListElement extends Component {
         const {
             action,
             completed,
-            created
+            creationTime,
+            completionTime
         } = this.props;
 
         const {
@@ -60,12 +61,18 @@ class ListElement extends Component {
             onDelete
         } = this;
 
+        const dateToShow = 
+            completed ? 
+                `(COMPLETED) ${new Date(completionTime).toLocaleString()}`
+                :
+                new Date(creationTime).toLocaleString();
+
         return (
             <List.Item onClick={onClick}
                 style={ completed ? 
                     {
-                        textDecorationLine: completed ? "line-through" : "",
-                        fontStyle: completed ? "italic" : ""
+                        textDecorationLine: "line-through",
+                        fontStyle: "italic"
                     } : null
                 }>
                 <List.Icon name="sticky note outline" size="large" verticalAlign="middle" />
@@ -74,7 +81,7 @@ class ListElement extends Component {
                         {action}
                     </List.Header>
                     <List.Description>
-                        {new Date(created).toLocaleString()}
+                        {dateToShow}
                     </List.Description>
                 </List.Content>
                 <Button

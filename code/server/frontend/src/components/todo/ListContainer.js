@@ -31,7 +31,8 @@ class ListContainer extends Component {
                         id: t._id,
                         action: t.action,
                         completed: t.completed,
-                        created: t.created
+                        creationTime: t.creationTime,
+                        completionTime: t.completionTime
                     };
                 });
 

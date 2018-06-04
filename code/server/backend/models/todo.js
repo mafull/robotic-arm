@@ -9,7 +9,12 @@ const todoSchema = new mongoose.Schema({
         default: false
     },
     
-    created: {
+    creationTime: {
+        type: Date,
+        default: Date.now
+    },
+
+    completionTime: {
         type: Date,
         default: Date.now
     }
