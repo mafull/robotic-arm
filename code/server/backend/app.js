@@ -33,6 +33,8 @@ expressWs(app);
 app.ws("/ws/log", (ws, req) => {
 	ws.send("Hi friend!");
 
+	lt.setWsHandle(ws);
+
 	const pingInterval = setInterval(() => {
 		ws.send(`PING ${process.uptime()}`);
 	}, 500);

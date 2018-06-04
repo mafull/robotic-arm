@@ -5,6 +5,9 @@ import moment	from "moment";
 // Handle for log file write stream
 let wFile = null;
 
+// Handle to the WebSocket send function
+let ws = null;
+
 
 const baseInit = (dir, ext) => {
 	// Check for valid input arguments
@@ -34,18 +37,28 @@ const baseInit = (dir, ext) => {
 }
 
 
+const baseSetWsHandle = (h) => {
+	ws = (typeof h === "object") ? h : null;
+}
+
+
 const genericLog = (message, type) => {
 	// Generate log string
 	const str = `${new Date().getTime()}|${message} \n`;
 
+	// Write the log to file if possible
+	wFile && wFile.write(str);
+
+	// Send to the client(s) if possible
+	ws && ws.send(str);
+
+	// Write to standard the console output
 	switch (type) {
 		case 'l':
 			console.log(message);
-			wFile && wFile.write(str);
 			break;
 		case 'e':
 			console.error(message);
-			wFile && wFile.write(str);
 			break;
 	}
 }
@@ -53,6 +66,9 @@ const genericLog = (message, type) => {
 
 module.exports = {
 	init: (dir, ext) => baseInit(dir, ext),
+
+	setWsHandle: (h) => baseSetWsHandle(h),
+
 	log: (msg) => genericLog(msg, "l"),
 	error: (msg) => genericLog(msg, "e")
 };
