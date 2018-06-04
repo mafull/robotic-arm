@@ -1,6 +1,5 @@
 import express      from "express";
 import mongoose     from "mongoose";
-import moment       from "moment";
 
 import lt           from "../LogTools";
 import { Todo }     from "../models";
