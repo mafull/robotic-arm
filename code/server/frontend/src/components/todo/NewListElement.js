@@ -1,7 +1,6 @@
 import React, { Component }		from "react";
 import axios					from "axios";
 import {
-	Button,
 	Form,
 	Input
 }								from "semantic-ui-react";
@@ -84,12 +83,6 @@ class NewListElement extends Component {
 							onChange={onChange}
 							autoComplete="off" />
 					</Form.Field>
-
-					<Button 
-						type="submit"
-						circular
-						icon="add"
-						disabled={!action}/>
 				</Form.Group>
 			</Form>
 		);

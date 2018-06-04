@@ -1,5 +1,6 @@
 import React, { Component }		from "react";
 import {
+	Form,
 	Header,
 	Icon,
 	Input,
@@ -16,7 +17,8 @@ class ListContainer extends Component {
 
 		logMessages: [],
 
-		messageLimit: 10
+		messageLimit: 10,
+		nextMessageLimit: 10
 	};
 
 
@@ -56,7 +58,14 @@ class ListContainer extends Component {
 			this.state,
 			{ [e.target.name]: e.target.value }
 		);
-		this.setState(newState, () => this.addAndLimitMessages(null));
+		this.setState(newState);
+	}
+
+
+	onSubmit = e => {
+		this.setState({ 
+			messageLimit: this.state.nextMessageLimit
+		}, () => this.addAndLimitMessages(null));		
 	}
 
 
@@ -66,11 +75,12 @@ class ListContainer extends Component {
 
 			logMessages,
 
-			messageLimit
+			nextMessageLimit
 		} = this.state;
 
 		const {
-			onChange
+			onChange,
+			onSubmit
 		} = this;
 
 		const listElements = logMessages.map((l, i) => <ListElement message={l} key={i} />).reverse();
@@ -84,14 +94,16 @@ class ListContainer extends Component {
 					</Header.Content>
 				</Header>
 
-				<Input
-					type="number"
-					min="0"
-					name="messageLimit"
-					value={messageLimit}
-					onChange={onChange}
-					autoComplete="off"
-					label="Log message limit" />
+				<Form onSubmit={onSubmit}>
+					<Input
+						type="number"
+						min="0"
+						name="nextMessageLimit"
+						value={nextMessageLimit}
+						onChange={onChange}
+						autoComplete="off"
+						label="Log message limit" />
+				</Form>
 					
 				<Segment loading={loading} basic>
 					<List>
