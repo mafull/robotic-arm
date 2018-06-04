@@ -3,7 +3,8 @@ import Log                      from "./log/Index"
 import Todo                     from "./todo/Index";
 import {
     Container,
-    Header
+    Header,
+    Segment
 }                               from "semantic-ui-react";
 
 
@@ -12,8 +13,10 @@ class Main extends Component {
         return (
             <Container>
                 <Header>Main component</Header>
-                <Todo />
-                <Log />
+                <Segment.Group horizontal>
+                    <Todo />
+                    <Log />
+                </Segment.Group>
             </Container>
         );
     }
