@@ -11,17 +11,19 @@ const router = express.Router();
 router.get("/", (req, res) => {
     Todo
         .find({})
-        .sort([
-            ["completed", 1],
-            ["created", 1]
-        ])
+        .sort({
+            completed: 1, 
+            created: 1
+        })
         .exec((err, todos) => {
             if (err) {
                 return res.status(404).send("Unable to retrieve todos");
             }
 
-            // Return todos
-            res.json(todos);
+            // Reverse order of completed tasks and return the recombined array
+            const nonComplete = todos.filter(t => !t.completed);
+            const complete = todos.filter(t => t.completed).reverse();
+            res.json([...nonComplete, ...complete]);
         });
 });
 
