@@ -1,10 +1,13 @@
 import React, { Component }     from "react";
+import {
+    List
+}                               from "semantic-ui-react";
 
 
 class ListElement extends Component {
     static defaultProps = {
         id: "",
-        text: "",
+        action: "",
         completed: false
     };
 
@@ -12,12 +15,19 @@ class ListElement extends Component {
     render() {
         const {
             id,
-            text,
-            completed
+            action,
+            completed,
+            created
         } = this.props;
 
         return (
-            <li>{text}</li>
+            <List.Item>
+                <List.Icon name="sticky note outline" size="large" verticalAlign="middle" />
+                <List.Content>
+                    <List.Header>{action}</List.Header>
+                    <List.Description>{new Date(created).toLocaleString()}</List.Description>
+                </List.Content>
+            </List.Item>
         );
     }
 }

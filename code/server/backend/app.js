@@ -20,7 +20,7 @@ app.use("/api", routes);
 
 // Listen for requests
 app.listen(
-    3001,
-    "localhost",
-    () => console.log(" -- Server started -- ")
+	3001,
+	"localhost",
+	() => console.log(" -- Server started -- ")
 );

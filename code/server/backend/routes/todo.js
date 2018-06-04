@@ -9,8 +9,6 @@ const router = express.Router();
 
 // Index
 router.get("/", (req, res) => {
-    console.log("GET request for todo index");
-
     Todo
         .find({})
         .sort([
@@ -31,7 +29,9 @@ router.get("/", (req, res) => {
 // Create
 router.post("/", (req, res) => {
     const todo = { 
-        text: req.body.text,
+        action: req.body.action,
+        created: req.body.completed,
+        created: req.body.created
     };
     console.log(req.body);
     console.log(todo);
@@ -55,7 +55,7 @@ router.put("/:id", (req, rese) => {
 
         const todo = req.body;
 
-        existingTodo.text = todo.text;
+        existingTodo.text = todo.action;
         existingTodo.completed = todo.completed;
         existingTodo.save((err, updatedTodo) => {
             if (err) {

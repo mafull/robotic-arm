@@ -1,14 +1,21 @@
 import React, { Component }     from "react";
 import Todo                     from "./todo/Index";
+import {
+    Card,
+    Container,
+    Header
+}                               from "semantic-ui-react";
 
 
 class Main extends Component {
     render() {
         return (
-            <div>
-                <h1>Main component</h1>
-                <Todo />
-            </div>
+            <Container>
+                <Header>Main component</Header>
+                {/* <Card.Group> */}
+                    <Todo />
+                {/* </Card.Group> */}
+            </Container>
         );
     }
 };
