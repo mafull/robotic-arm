@@ -35,6 +35,8 @@ class ListContainer extends Component {
                     };
                 });
 
+                console.table(todos);
+
                 // Update the state
                 const newState = Object.assign(
                     {},
@@ -69,7 +71,7 @@ class ListContainer extends Component {
             updateData
         } = this;
 
-        const listElements = todos.length ? todos.map(t => <ListElement {...t} key={t.id} />) : null;
+        const listElements = todos.length ? todos.map(t => <ListElement {...t} key={t.id} parentUpdateData={updateData} />) : null;
 
         return (
             <Segment loading={loading}>

@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
     Todo
         .find({})
         .sort([
-            ["created", 1],
-            ["completed", 1]
+            ["completed", 1],
+            ["created", 1]
         ])
         .exec((err, todos) => {
             if (err) {
@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     const todo = { 
         action: req.body.action,
-        created: req.body.completed,
+        completed: req.body.completed,
         created: req.body.created
     };
     console.log(req.body);
@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
 
 
 // Update
-router.put("/:id", (req, rese) => {
+router.put("/:id", (req, res) => {
     Todo.findById(req.params.id, (err, existingTodo) => {
         if (err) {
             return res.status(404).send("Unable to retreive todo data");
@@ -55,7 +55,7 @@ router.put("/:id", (req, rese) => {
 
         const todo = req.body;
 
-        existingTodo.text = todo.action;
+        existingTodo.action = todo.action;
         existingTodo.completed = todo.completed;
         existingTodo.save((err, updatedTodo) => {
             if (err) {
@@ -64,6 +64,18 @@ router.put("/:id", (req, rese) => {
 
             res.json(updatedTodo);
         });
+    });
+});
+
+
+// Destroy
+router.delete("/:id", (req, res) => {
+    Todo.findByIdAndRemove(req.params.id, err => {
+        if (err) {
+            return res.status(404).send("Unable to delete todo");
+        }
+
+        res.json({});
     });
 });
 
