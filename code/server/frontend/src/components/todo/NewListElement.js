@@ -63,7 +63,7 @@ class NewListElement extends Component {
 	render() {
 		const {
 			sending,
-			
+
 			action
 		} = this.state;
 
@@ -81,13 +81,15 @@ class NewListElement extends Component {
 							name="action"
 							placeholder="Action"
 							value={action}
-							onChange={onChange} />
+							onChange={onChange}
+							autoComplete="off" />
 					</Form.Field>
 
 					<Button 
 						type="submit"
 						circular
-						icon="add" />
+						icon="add"
+						disabled={!action}/>
 				</Form.Group>
 			</Form>
 		);

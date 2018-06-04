@@ -33,8 +33,6 @@ router.post("/", (req, res) => {
         completed: req.body.completed,
         created: req.body.created
     };
-    console.log(req.body);
-    console.log(todo);
 
     Todo.create(todo, (err, createdTodo) => {
         if (err) {

@@ -35,8 +35,6 @@ class ListContainer extends Component {
                     };
                 });
 
-                console.table(todos);
-
                 // Update the state
                 const newState = Object.assign(
                     {},

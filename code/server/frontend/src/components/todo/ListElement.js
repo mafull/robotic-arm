@@ -25,7 +25,6 @@ class ListElement extends Component {
         axios
             .put(`/todo/${this.props.id}`, todo)
             .then(response => {
-                console.log(response.data);
                 if (this.props.parentUpdateData) this.props.parentUpdateData();
             })
             .catch(error => {
@@ -44,6 +43,7 @@ class ListElement extends Component {
                 console.error(error.response);
             });
 
+        // Prevent onClick() from being called as well
         e.stopPropagation();
     }
 
@@ -62,10 +62,16 @@ class ListElement extends Component {
         } = this;
 
         return (
-            <List.Item onClick={onClick}>
+            <List.Item onClick={onClick}
+                style={ completed ? 
+                    {
+                        textDecorationLine: completed ? "line-through" : "",
+                        fontStyle: completed ? "italic" : ""
+                    } : null
+                }>
                 <List.Icon name="sticky note outline" size="large" verticalAlign="middle" />
                 <List.Content>
-                    <List.Header style={ {textDecorationLine: completed ? "line-through" : ""} }>
+                    <List.Header>
                         {action}
                     </List.Header>
                     <List.Description>
