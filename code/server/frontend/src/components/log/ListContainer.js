@@ -35,7 +35,7 @@ class ListContainer extends Component {
 	}
 
 
-	componentDidMount() {
+	connectToWs = () => {
 		// Make the connection to the WebSocket
 		this.wsConnection = new WebSocket("ws://localhost:3001/ws/log");
 
@@ -44,11 +44,26 @@ class ListContainer extends Component {
 			this.addAndLimitMessages(e.data);
 		};
 
+		// Handle errors
+		this.wsConnection.onerror = e => {
+			console.error(e);
+		};
+
 		// Handle the connection closing
 		this.wsConnection.onclose = e => {
+			// Attempt to reconnect if the connection is not cleanly broken
 			const { wasClean } = e;
-			console.log(wasClean);
+			if (!wasClean) {
+				if (!this.wsConnection.timeout)
+					this.wsConnection.timeout = setTimeout(this.connectToWs, 1000);
+			}
 		};
+	}
+
+
+	componentDidMount() {
+		// Make the connection to the WebSocket
+		this.connectToWs();	
 	}
 
 
