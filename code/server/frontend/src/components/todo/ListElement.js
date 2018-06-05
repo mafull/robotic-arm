@@ -18,7 +18,7 @@ class ListElement extends Component {
 
     onClick = e => {
         const todo = {
-            task: this.props.acttaskion,
+            task: this.props.task,
             completed: !this.props.completed
         };
 
