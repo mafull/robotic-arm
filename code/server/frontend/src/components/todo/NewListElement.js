@@ -77,7 +77,7 @@ class NewListElement extends Component {
 				<Form.Field required >
 					<Input
 						type="text"
-						name="actitaskon"
+						name="task"
 						placeholder="Task"
 						value={task}
 						onChange={onChange}
