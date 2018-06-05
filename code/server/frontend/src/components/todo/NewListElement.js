@@ -10,7 +10,7 @@ class NewListElement extends Component {
 	state = {
 		sending: false,
 
-		action: ""
+		task: ""
 	};
 
 
@@ -32,7 +32,7 @@ class NewListElement extends Component {
 		));
 
 		const data = {
-			action: this.state.action,
+			task: this.state.task,
 			completed: false,
 			creationTime: Date.now(),
 			completionTime: Date.now()
@@ -47,7 +47,7 @@ class NewListElement extends Component {
 					this.state,
 					{ 
 						sending: false,
-						action: ""
+						task: ""
 					}
 				));
 
@@ -64,7 +64,7 @@ class NewListElement extends Component {
 		const {
 			sending,
 
-			action
+			task
 		} = this.state;
 
 		const {
@@ -77,9 +77,9 @@ class NewListElement extends Component {
 				<Form.Field required >
 					<Input
 						type="text"
-						name="action"
-						placeholder="Action"
-						value={action}
+						name="actitaskon"
+						placeholder="Task"
+						value={task}
 						onChange={onChange}
 						autoComplete="off" />
 				</Form.Field>

@@ -9,7 +9,7 @@ import {
 class ListElement extends Component {
     static defaultProps = {
         id: "",
-        action: "",
+        task: "",
         completed: false,
 
         parentUpdateData: null
@@ -18,7 +18,7 @@ class ListElement extends Component {
 
     onClick = e => {
         const todo = {
-            action: this.props.action,
+            task: this.props.acttaskion,
             completed: !this.props.completed
         };
 
@@ -50,7 +50,7 @@ class ListElement extends Component {
 
     render() {
         const {
-            action,
+            task,
             completed,
             creationTime,
             completionTime
@@ -78,7 +78,7 @@ class ListElement extends Component {
                 <List.Icon name="sticky note outline" size="large" verticalAlign="middle" />
                 <List.Content>
                     <List.Header>
-                        {action}
+                        {task}
                     </List.Header>
                     <List.Description>
                         {dateToShow}

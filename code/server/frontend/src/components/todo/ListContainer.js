@@ -5,7 +5,6 @@ import {
     Checkbox,
     Header,
     Icon,
-    Input,
     List,
     Segment
 }                               from "semantic-ui-react";
@@ -33,7 +32,7 @@ class ListContainer extends Component {
                 const todos = response.data.map(t => {
                     return {
                         id: t._id,
-                        action: t.action,
+                        task: t.task,
                         completed: t.completed,
                         creationTime: t.creationTime,
                         completionTime: t.completionTime

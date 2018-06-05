@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
     lt.log(`POST ${req.originalUrl} from ${req.ip}`);
 
     const todo = { 
-        action: req.body.action,
+        task: req.body.task,
         completed: req.body.completed,
         creationTime: req.body.creationTime,
         completionTime: req.body.completionTime
@@ -65,7 +65,7 @@ router.put("/:id", (req, res) => {
 
         const todo = req.body;
 
-        existingTodo.action = todo.action;
+        existingTodo.task = todo.task;
         existingTodo.completed = todo.completed;
         existingTodo.completionTime = Date.now();
         existingTodo.save((err, updatedTodo) => {
