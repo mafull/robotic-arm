@@ -62,18 +62,8 @@ class ListContainer extends Component {
     }
 
 
-    // onChange = e => {
-    //     const newState = Object.assign(
-	// 		{},
-	// 		this.state,
-	// 		{ [e.target.name]: e.target.value }
-	// 	);
-	// 	this.setState(newState);
-    // }
-
-
     toggleCheckbox = (e, data) => {
-        this.setState({ showCompleted: data.checked }, () => console.log(this.state));        
+        this.setState({ showCompleted: data.checked });        
     }
 
 
