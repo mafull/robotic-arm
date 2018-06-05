@@ -10,8 +10,6 @@ const router = express.Router();
 
 // Index
 router.get("/", (req, res) => {
-    lt.log(`GET ${req.originalUrl} from ${req.ip}`);
-
     Todo
         .find({})
         .sort({
@@ -35,8 +33,6 @@ router.get("/", (req, res) => {
 
 // Create
 router.post("/", (req, res) => {
-    lt.log(`POST ${req.originalUrl} from ${req.ip}`);
-
     const todo = { 
         task: req.body.task,
         completed: req.body.completed,
@@ -56,8 +52,6 @@ router.post("/", (req, res) => {
 
 // Update
 router.put("/:id", (req, res) => {
-    lt.log(`UPDATE ${req.originalUrl} from ${req.ip}`);
-
     Todo.findById(req.params.id, (err, existingTodo) => {
         if (err) {
             return res.status(404).send("Unable to retreive todo data");
@@ -81,8 +75,6 @@ router.put("/:id", (req, res) => {
 
 // Destroy
 router.delete("/:id", (req, res) => {
-    lt.log(`DELETE ${req.originalUrl} from ${req.ip}`);
-
     Todo.findByIdAndRemove(req.params.id, err => {
         if (err) {
             return res.status(404).send("Unable to delete todo");

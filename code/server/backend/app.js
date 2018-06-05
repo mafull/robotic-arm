@@ -3,6 +3,7 @@ import bodyParser   from "body-parser";
 import mongoose     from "mongoose";
 import expressWs	from "express-ws";
 
+import middleware	from "./middleware";
 import lt			from "./LogTools";
 import routes       from "./routes";
 
@@ -11,6 +12,9 @@ lt.init("./log", ".log");
 
 // Create an express application instance
 const app = express();
+
+// Add middleware
+app.use(middleware.logRequest);
 
 // Connect to the database
 mongoose.connect("mongodb://localhost/robotic_arm", err => {
@@ -31,9 +35,10 @@ app.use("/api", routes);
 // Initialise WebSockets
 expressWs(app);
 app.ws("/ws/log", (ws, req) => {
-	ws.send("Hi friend!");
-
+	// Enable websocket logging functionality
 	lt.setWsHandle(ws);
+
+	ws.send("Hi friend!");
 
 	const pingInterval = setInterval(() => {
 		ws.send(`PING ${process.uptime()}`);
@@ -51,6 +56,7 @@ app.ws("/ws/log", (ws, req) => {
 
 	ws.on("close", e => {
 		clearInterval(pingInterval);
+		lt.setWsHandle(null);
 	});
 });
 
