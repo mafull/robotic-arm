@@ -90,7 +90,7 @@ class ListContainer extends Component {
 				<Header icon textAlign="center">
 					<Icon name="server" circular />
 					<Header.Content>
-						Log
+						Server Log
 					</Header.Content>
 				</Header>
 
