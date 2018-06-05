@@ -74,17 +74,15 @@ class NewListElement extends Component {
 
 		return (
 			<Form loading={sending} onSubmit={onSubmit}>
-				<Form.Group inline>
-					<Form.Field required >
-						<Input
-							type="text"
-							name="action"
-							placeholder="Action"
-							value={action}
-							onChange={onChange}
-							autoComplete="off" />
-					</Form.Field>
-				</Form.Group>
+				<Form.Field required >
+					<Input
+						type="text"
+						name="action"
+						placeholder="Action"
+						value={action}
+						onChange={onChange}
+						autoComplete="off" />
+				</Form.Field>
 			</Form>
 		);
 	}

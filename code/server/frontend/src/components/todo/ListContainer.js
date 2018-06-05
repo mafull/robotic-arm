@@ -2,8 +2,10 @@ import React, { Component }     from "react";
 import axios                    from "axios";
 
 import {
+    Checkbox,
     Header,
     Icon,
+    Input,
     List,
     Segment
 }                               from "semantic-ui-react";
@@ -16,7 +18,9 @@ class ListContainer extends Component {
     state = {
         loading: true,
 
-        todos: []
+        todos: [],
+
+        showCompleted: false
     };
 
 
@@ -59,18 +63,40 @@ class ListContainer extends Component {
     }
 
 
+    // onChange = e => {
+    //     const newState = Object.assign(
+	// 		{},
+	// 		this.state,
+	// 		{ [e.target.name]: e.target.value }
+	// 	);
+	// 	this.setState(newState);
+    // }
+
+
+    toggleCheckbox = (e, data) => {
+        this.setState({ showCompleted: data.checked }, () => console.log(this.state));        
+    }
+
+
     render() {
         const { 
             loading,
 
-            todos
+            todos,
+
+            showCompleted
         } = this.state;
 
         const {
-            updateData
+            updateData,
+            toggleCheckbox
         } = this;
 
-        const listElements = todos.length ? todos.map(t => <ListElement {...t} key={t.id} parentUpdateData={updateData} />) : null;
+        const todosToShow = todos.length ?
+            showCompleted ? todos : todos.filter(t => !t.completed)
+            :
+            null;
+        const listElements = todosToShow ? todosToShow.map(t => <ListElement {...t} key={t.id} parentUpdateData={updateData} />) : null;
 
         return (
             <Segment>
@@ -83,6 +109,13 @@ class ListContainer extends Component {
 
                 <Segment loading={loading} basic>
                     <NewListElement parentUpdateData={updateData} />
+                    <Segment basic>
+                        <Checkbox
+                            label="Show completed tasks"
+                            toggle
+                            checked={showCompleted}
+                            onChange={toggleCheckbox} />
+                    </Segment>
                     
                     <List divided relaxed>
                         {listElements}
